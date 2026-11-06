@@ -1,0 +1,24 @@
+name: Build Docker image
+
+on:
+  push:
+    paths:
+      - "ubuntu-server-project/**"
+      - ".github/workflows/docker-build.yml"
+  pull_request:
+    paths:
+      - "ubuntu-server-project/**"
+      - ".github/workflows/docker-build.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v7
+
+      - name: Build application image
+        run: docker build --tag ubuntu-server-project:ci ./ubuntu-server-project
